@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import confetti from "canvas-confetti";
-import { FaPaperPlane, FaHeart } from "react-icons/fa";
+import { FaPaperPlane } from "react-icons/fa";
 import cuteImage from "../assets/images/cute.png";
 
 export default function Ending() {
