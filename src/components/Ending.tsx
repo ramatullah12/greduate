@@ -14,24 +14,26 @@ export default function Ending() {
     setIsSending(true);
     
     try {
-      await fetch("https://formsubmit.co/ajax/yuantullah@gmail.com", {
+      // Rahasia di background tanpa memberitahu Bebii
+      await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
-          _subject: "💌 Balasan Surat Kelulusan dari Bebii!",
-          Name: "Bebii",
-          Message: replyMessage
-        })
+          access_key: "ac5d4b3a-53f2-470a-a1fa-023c1b903615",
+          subject: "💌 Balasan Surat Kelulusan dari Bebii!",
+          name: "Bebii",
+          message: replyMessage,
+        }),
       });
       setIsSending(false);
       setIsSent(true);
     } catch (error) {
-      console.error("Gagal mengirim:", error);
+      console.error(error);
       setIsSending(false);
-      setIsSent(true); // Biarkan tetap lanjut animasi sukses agar tidak merusak momen
+      setIsSent(true); // Animasi tetap sukses biar Bebii tidak curiga
     }
   };
 
