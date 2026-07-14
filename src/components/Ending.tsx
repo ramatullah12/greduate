@@ -182,27 +182,60 @@ export default function Ending() {
                 </>
               ) : (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.5, y: 30 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ type: "spring", bounce: 0.6, duration: 0.8 }}
-                  className="flex flex-col items-center gap-4 bg-[rgba(232,160,176,0.08)] p-6 rounded-2xl w-full border border-[rgba(232,160,176,0.25)] shadow-[0_10px_30px_rgba(0,0,0,0.3)] mt-2"
-                >
-                  <motion.div 
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-                    className="w-32 h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden border-2 border-[var(--color-elegant-pink)] shadow-[0_0_25px_rgba(232,160,176,0.4)] bg-white mb-2"
-                  >
-                    <img src={cuteImage} alt="Cute Love" className="w-full h-full object-cover" />
-                  </motion.div>
-                  <div className="space-y-1">
-                    <p className="font-cursive text-3xl md:text-4xl text-[var(--color-elegant-pink)] text-center drop-shadow-[0_0_10px_rgba(232,160,176,0.4)]">
-                      Mendarat dengan Selamat! 💌
-                    </p>
-                    <p className="font-serif italic text-sm md:text-base text-[var(--color-elegant-muted)] text-center leading-relaxed px-2">
-                      Pesannya sudah terbang dan mendarat di hati Abang. Terima kasih ya Bebii. ❤️
-                    </p>
-                  </div>
-                </motion.div>
+  initial={{ opacity: 0, scale: 0.5, y: 30 }}
+  animate={{ opacity: 1, scale: 1, y: 0 }}
+  transition={{ type: "spring", bounce: 0.6, duration: 0.8 }}
+  className="flex flex-col items-center gap-6 bg-[rgba(232,160,176,0.08)] p-8 rounded-3xl w-full border border-[rgba(232,160,176,0.25)] shadow-[0_10px_30px_rgba(0,0,0,0.3)] mt-2"
+>
+
+  {/* Foto Cute */}
+  <motion.div
+    initial={{ scale: 0 }}
+    animate={{ scale: 1 }}
+    transition={{
+      delay: 0.3,
+      type: "spring",
+      stiffness: 180,
+    }}
+    className="relative"
+  >
+    <div className="absolute inset-0 rounded-full bg-pink-300 blur-2xl opacity-40"></div>
+
+    <img
+      src={cuteImage}
+      alt="Cute"
+      className="relative w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-4 border-pink-300 shadow-[0_0_35px_rgba(232,160,176,.45)]"
+    />
+  </motion.div>
+
+  {/* Judul */}
+  <motion.h2
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.5 }}
+    className="font-cursive text-5xl text-[var(--color-elegant-pink)] text-center leading-tight"
+  >
+    Mendarat
+    <br />
+    dengan
+    <br />
+    Selamat! 💌
+  </motion.h2>
+
+  {/* Pesan */}
+  <motion.p
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 0.8 }}
+    className="font-serif italic text-center text-[var(--color-elegant-muted)] leading-8 max-w-xs"
+  >
+    Pesannya sudah terbang dan
+    mendarat di hati Abang.
+    <br />
+    Terima kasih ya Bebii. ❤️
+  </motion.p>
+
+</motion.div>
               )}
             </motion.div>
           )}
