@@ -9,15 +9,30 @@ export default function Ending() {
   const [isSending, setIsSending] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
-  const handleSendReply = () => {
+  const handleSendReply = async () => {
     if (!replyMessage.trim()) return;
     setIsSending(true);
     
-    // Simulate paper plane flying delay
-    setTimeout(() => {
+    try {
+      await fetch("https://formsubmit.co/ajax/yuantullah@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: "💌 Balasan Surat Kelulusan dari Bebii!",
+          Name: "Bebii",
+          Message: replyMessage
+        })
+      });
       setIsSending(false);
       setIsSent(true);
-    }, 1500);
+    } catch (error) {
+      console.error("Gagal mengirim:", error);
+      setIsSending(false);
+      setIsSent(true); // Biarkan tetap lanjut animasi sukses agar tidak merusak momen
+    }
   };
 
   return (
