@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Musik romantis gratis — bisa diganti dengan file MP3 sendiri nanti
-// Caranya: taruh file MP3 di src/assets/music/love.mp3 dan ganti URL di bawah
-const MUSIC_SRC = "/src/assets/music/love.mp3";
+// Import file musik secara langsung agar ikut dibundle oleh Vite saat publish
+import MUSIC_SRC from "../assets/music/love.mp3";
 
 export default function MusicPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
