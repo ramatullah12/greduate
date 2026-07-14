@@ -14,14 +14,34 @@ export default function MusicPlayer() {
     const t = setTimeout(() => setVisible(true), 1000);
     return () => clearTimeout(t);
   }, []);
-  // Auto-play music on component mount
+  // Auto-play music on component mount or first interaction
   useEffect(() => {
     const audio = audioRef.current;
-    if (audio) {
-      audio.volume = 0.35;
-      audio.loop = true;
-      audio.play().then(() => setPlaying(true)).catch(() => {});
-    }
+    if (!audio) return;
+    
+    audio.volume = 0.35;
+    audio.loop = true;
+
+    // Define function here so it's accessible by both the catch block and cleanup function
+    const unlockAudio = () => {
+      audio.play().then(() => {
+        setPlaying(true);
+        document.removeEventListener("click", unlockAudio);
+        document.removeEventListener("touchstart", unlockAudio);
+      }).catch(() => {});
+    };
+
+    // Try to play immediately (might fail due to browser autoplay policy)
+    audio.play().then(() => setPlaying(true)).catch(() => {
+      // If it fails, wait for the first user interaction (click, touch, etc.)
+      document.addEventListener("click", unlockAudio);
+      document.addEventListener("touchstart", unlockAudio);
+    });
+    
+    return () => {
+      document.removeEventListener("click", unlockAudio);
+      document.removeEventListener("touchstart", unlockAudio);
+    };
   }, []);
 
   const toggle = () => {
