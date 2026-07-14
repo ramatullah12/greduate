@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import confetti from "canvas-confetti";
-import { FaPaperPlane } from "react-icons/fa";
+import { FaPaperPlane, FaHeart } from "react-icons/fa";
 
 export default function Ending() {
   const [kissed, setKissed] = useState(false);
@@ -30,10 +30,23 @@ export default function Ending() {
       });
       setIsSending(false);
       setIsSent(true);
+      // Confetti khusus surat
+      confetti({
+        particleCount: 60,
+        spread: 70,
+        origin: { y: 0.8 },
+        colors: ["#ffb3c6", "#ff8fab", "#fb6f92", "#ffffff"]
+      });
     } catch (error) {
       console.error(error);
       setIsSending(false);
       setIsSent(true); // Animasi tetap sukses biar Bebii tidak curiga
+      confetti({
+        particleCount: 60,
+        spread: 70,
+        origin: { y: 0.8 },
+        colors: ["#ffb3c6", "#ff8fab", "#fb6f92", "#ffffff"]
+      });
     }
   };
 
@@ -132,19 +145,32 @@ export default function Ending() {
                     whileTap={!isSending && replyMessage.trim() ? { scale: 0.95 } : {}}
                     onClick={handleSendReply}
                     disabled={isSending || !replyMessage.trim()}
-                    className={`btn-pill w-full flex items-center justify-center gap-2 overflow-hidden relative !bg-[var(--color-elegant-pink)] !text-[var(--color-elegant-dark)] shadow-[0_0_15px_rgba(232,160,176,0.4)] ${
-                      isSending || !replyMessage.trim() ? "opacity-70 cursor-not-allowed" : ""
+                    className={`btn-pill w-full flex items-center justify-center gap-2 overflow-hidden relative !bg-[var(--color-elegant-pink)] !text-[var(--color-elegant-dark)] shadow-[0_0_15px_rgba(232,160,176,0.4)] transition-all duration-300 ${
+                      isSending || !replyMessage.trim() ? "opacity-80 cursor-not-allowed" : ""
                     }`}
                   >
                     {isSending ? (
-                      <motion.div
-                        initial={{ x: -20, y: 10, opacity: 0 }}
-                        animate={{ x: 150, y: -50, opacity: [1, 1, 0] }}
-                        transition={{ duration: 1.2, ease: "easeIn" }}
-                        className="absolute"
-                      >
-                        <FaPaperPlane className="text-xl" />
-                      </motion.div>
+                      <>
+                        <motion.div
+                          animate={{ 
+                            x: [0, 30, 80, 150, 300], 
+                            y: [0, -15, 10, -40, -80],
+                            rotate: [0, -15, 15, -20, -10],
+                            opacity: [1, 1, 1, 0.5, 0]
+                          }}
+                          transition={{ duration: 1.5, ease: "easeInOut" }}
+                          className="absolute z-10"
+                        >
+                          <FaPaperPlane className="text-2xl text-[var(--color-elegant-dark)]" />
+                        </motion.div>
+                        <motion.span 
+                          animate={{ opacity: [0.5, 1, 0.5] }}
+                          transition={{ repeat: Infinity, duration: 1 }}
+                          className="font-semibold opacity-70 ml-4"
+                        >
+                          Menerbangkan surat...
+                        </motion.span>
+                      </>
                     ) : (
                       <>
                         <FaPaperPlane />
@@ -155,19 +181,26 @@ export default function Ending() {
                 </>
               ) : (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center gap-2"
+                  initial={{ opacity: 0, scale: 0.5, y: 30 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ type: "spring", bounce: 0.6, duration: 0.8 }}
+                  className="flex flex-col items-center gap-4 bg-[rgba(232,160,176,0.08)] p-6 rounded-2xl w-full border border-[rgba(232,160,176,0.25)] shadow-[0_10px_30px_rgba(0,0,0,0.3)] mt-2"
                 >
-                  <div className="w-12 h-12 rounded-full bg-[rgba(232,160,176,0.15)] flex items-center justify-center text-[var(--color-elegant-pink)] text-xl mb-1 shadow-[0_0_15px_rgba(232,160,176,0.3)]">
-                    <FaPaperPlane />
+                  <motion.div 
+                    animate={{ scale: [1, 1.25, 1], rotate: [0, -10, 10, 0] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    className="w-16 h-16 rounded-full bg-gradient-to-br from-[var(--color-elegant-pink)] to-[#d87c94] flex items-center justify-center text-[var(--color-elegant-dark)] text-3xl shadow-[0_0_25px_rgba(232,160,176,0.6)]"
+                  >
+                    <FaHeart />
+                  </motion.div>
+                  <div className="space-y-1">
+                    <p className="font-cursive text-3xl md:text-4xl text-[var(--color-elegant-pink)] text-center drop-shadow-[0_0_10px_rgba(232,160,176,0.4)]">
+                      Mendarat dengan Selamat! 💌
+                    </p>
+                    <p className="font-serif italic text-sm md:text-base text-[var(--color-elegant-muted)] text-center leading-relaxed px-2">
+                      Pesannya sudah terbang dan mendarat di hati Abang. Terima kasih ya Bebii. ❤️
+                    </p>
                   </div>
-                  <p className="font-cursive text-3xl text-[var(--color-elegant-pink)]">
-                    Pesan Terkirim!
-                  </p>
-                  <p className="font-serif italic text-sm text-[var(--color-elegant-muted)] text-center leading-relaxed">
-                    Terima kasih Bebii. Abang tunggu waktu kita ketemu lagi ya. ❤️
-                  </p>
                 </motion.div>
               )}
             </motion.div>
