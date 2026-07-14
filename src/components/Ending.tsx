@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import confetti from "canvas-confetti";
 import { FaPaperPlane, FaHeart } from "react-icons/fa";
+import cuteImage from "../assets/images/cute.png";
 
 export default function Ending() {
   const [kissed, setKissed] = useState(false);
@@ -187,11 +188,11 @@ export default function Ending() {
                   className="flex flex-col items-center gap-4 bg-[rgba(232,160,176,0.08)] p-6 rounded-2xl w-full border border-[rgba(232,160,176,0.25)] shadow-[0_10px_30px_rgba(0,0,0,0.3)] mt-2"
                 >
                   <motion.div 
-                    animate={{ scale: [1, 1.25, 1], rotate: [0, -10, 10, 0] }}
-                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                    className="w-16 h-16 rounded-full bg-gradient-to-br from-[var(--color-elegant-pink)] to-[#d87c94] flex items-center justify-center text-[var(--color-elegant-dark)] text-3xl shadow-[0_0_25px_rgba(232,160,176,0.6)]"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                    className="w-32 h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden border-2 border-[var(--color-elegant-pink)] shadow-[0_0_25px_rgba(232,160,176,0.4)] bg-white mb-2"
                   >
-                    <FaHeart />
+                    <img src={cuteImage} alt="Cute Love" className="w-full h-full object-cover" />
                   </motion.div>
                   <div className="space-y-1">
                     <p className="font-cursive text-3xl md:text-4xl text-[var(--color-elegant-pink)] text-center drop-shadow-[0_0_10px_rgba(232,160,176,0.4)]">
